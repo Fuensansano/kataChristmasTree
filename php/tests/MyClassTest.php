@@ -11,7 +11,6 @@ class MyClassTest extends TestCase
     public function give_me_a_good_name_please(): void
     {
         $xxx = new TheClass();
-        jshdgfjhsdgjshd
         $result = $xxx->theMethod();
 
         self::assertEquals(true, $result);
