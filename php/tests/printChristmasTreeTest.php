@@ -5,19 +5,33 @@ namespace KataTests;
 use Kata\TheClass;
 use PHPUnit\Framework\TestCase;
 
-function printChristmasTree(int $height): string
+function buildTree(int $height): string
 {
     $tree = "";
 
-    for ($i = 0, $spacesNumber = $height - 1, $leaves = 1; $i < $height; $i++, $spacesNumber--, $leaves += 2) {
-        $tree .= str_repeat(" ", $spacesNumber);
+    $tree .= buildTreeTop($height);
+    $tree .= buildTreeTrunk($height);
+
+    return $tree;
+}
+
+function buildTreeTrunk(int $height): string
+{
+    $tree = '';
+    $tree .= str_repeat(' ', $height - 1);
+    $tree .= '|';
+
+    return $tree;
+}
+
+function buildTreeTop(int $height): string
+{
+    $tree = '';
+    for ($branch = 0, $spacesNumber = $height - 1, $leaves = 1; $branch < $height; $branch++, $spacesNumber--, $leaves += 2) {
+        $tree .= str_repeat(' ', $spacesNumber);
         $tree .= str_repeat('x', $leaves);
         $tree .= "\n";
     }
-
-    $tree .= str_repeat(" ", $height - 1);
-
-    $tree .= '|';
     return $tree;
 }
 
@@ -32,7 +46,7 @@ xxx
  |
 TEX;
 
-        $actualResult = printChristmasTree(2);
+        $actualResult = buildTree(2);
 
         self::assertSame($expected, $actualResult);
     }
@@ -47,7 +61,7 @@ xxxxx
   |
 TEX;
 
-        $actualResult = printChristmasTree(3);
+        $actualResult = buildTree(3);
 
         self::assertSame($expected, $actualResult);
     }
@@ -64,7 +78,7 @@ TEX;
        |
     TEX;
 
-        $actualResult = printChristmasTree(4);
+        $actualResult = buildTree(4);
 
         self::assertSame($expected, $actualResult);
     }
