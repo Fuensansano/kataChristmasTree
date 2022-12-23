@@ -2,40 +2,10 @@
 
 namespace KataTests;
 
-use Kata\TheClass;
 use PHPUnit\Framework\TestCase;
+use Kata\Tree;
 
-function buildTree(int $height): string
-{
-    $tree = "";
-
-    $tree .= buildTreeTop($height);
-    $tree .= buildTreeTrunk($height);
-
-    return $tree;
-}
-
-function buildTreeTrunk(int $height): string
-{
-    $tree = '';
-    $tree .= str_repeat(' ', $height - 1);
-    $tree .= '|';
-
-    return $tree;
-}
-
-function buildTreeTop(int $height): string
-{
-    $tree = '';
-    for ($branch = 0, $spacesNumber = $height - 1, $leaves = 1; $branch < $height; $branch++, $spacesNumber--, $leaves += 2) {
-        $tree .= str_repeat(' ', $spacesNumber);
-        $tree .= str_repeat('x', $leaves);
-        $tree .= "\n";
-    }
-    return $tree;
-}
-
-class printChristmasTreeTest extends TestCase
+class treeTest extends TestCase
 {
     /** @test */
     public function give_height_of_two_we_expect_to_have_a_tree_of_two_rows_of_leaves(): void
@@ -46,7 +16,7 @@ xxx
  |
 TEX;
 
-        $actualResult = buildTree(2);
+        $actualResult = (new Tree())->build(2);
 
         self::assertSame($expected, $actualResult);
     }
@@ -61,7 +31,7 @@ xxxxx
   |
 TEX;
 
-        $actualResult = buildTree(3);
+        $actualResult = (new Tree())->build(3);
 
         self::assertSame($expected, $actualResult);
     }
@@ -78,7 +48,7 @@ TEX;
        |
     TEX;
 
-        $actualResult = buildTree(4);
+        $actualResult = (new Tree())->build(4);
 
         self::assertSame($expected, $actualResult);
     }
