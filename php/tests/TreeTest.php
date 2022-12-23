@@ -5,51 +5,42 @@ namespace KataTests;
 use PHPUnit\Framework\TestCase;
 use Kata\Tree;
 
-class treeTest extends TestCase
+class TreeTest extends TestCase
 {
-    /** @test */
-    public function give_height_of_two_we_expect_to_have_a_tree_of_two_rows_of_leaves(): void
+
+    function providerTreeBuilder(): \Generator
     {
-        $expected = <<<'TEX'
- x
-xxx
- |
-TEX;
+        yield 'Given a height of two' => [ 2, <<<'TEX'
+             x
+            xxx
+             |
+            TEX ];
 
-        $actualResult = (new Tree())->build(2);
+        yield 'Given a height of three' => [ 3, <<<'TEX'
+              x
+             xxx
+            xxxxx
+              |
+            TEX ];
 
-        self::assertSame($expected, $actualResult);
+        yield 'Given a height of four' => [ 4, <<<'TEX'
+               x
+              xxx
+             xxxxx
+            xxxxxxx
+               |
+            TEX ];
     }
 
-    /** @test */
-    public function give_height_of_three_we_expect_to_have_a_tree_of_three_rows_of_leaves(): void
+    /**
+     * @dataProvider providerTreeBuilder
+     * @test
+     */
+    public function given_a_height_we_expect_to_have_the_same_amount_of_rows(int $height, string $expectedTree): void
     {
-        $expected = <<<'TEX'
-  x
- xxx
-xxxxx
-  |
-TEX;
 
-        $actualResult = (new Tree())->build(3);
+        $actualResult = (new Tree())->build($height);
 
-        self::assertSame($expected, $actualResult);
-    }
-
-
-    /** @test */
-    public function give_height_of_four_we_expect_to_have_a_tree_of_four_rows_of_leaves(): void
-    {
-        $expected = <<<'TEX'
-       x
-      xxx
-     xxxxx
-    xxxxxxx
-       |
-    TEX;
-
-        $actualResult = (new Tree())->build(4);
-
-        self::assertSame($expected, $actualResult);
+        self::assertSame($expectedTree, $actualResult);
     }
 }
