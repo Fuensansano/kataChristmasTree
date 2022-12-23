@@ -7,6 +7,12 @@ use PHPUnit\Framework\TestCase;
 
 function printChristmasTree(int $height): string
 {
+    $tree = "";
+
+    for ($i = 0, $spacesNumber = $height; $i <= $height; $i++, $spacesNumber-2) {
+       $tree .= str_repeat(" ",$spacesNumber);
+    }
+
     if($height === 4) {
         return <<<'TEX'
    x
@@ -30,6 +36,8 @@ TEX;
 xxx
  |
 TEX;
+
+
 }
 
 class printChristmasTreeTest extends TestCase
