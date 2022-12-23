@@ -9,35 +9,16 @@ function printChristmasTree(int $height): string
 {
     $tree = "";
 
-    for ($i = 0, $spacesNumber = $height; $i <= $height; $i++, $spacesNumber-2) {
-       $tree .= str_repeat(" ",$spacesNumber);
+    for ($i = 0, $spacesNumber = $height - 1, $leaves = 1; $i < $height; $i++, $spacesNumber--, $leaves += 2) {
+        $tree .= str_repeat(" ", $spacesNumber);
+        $tree .= str_repeat('x', $leaves);
+        $tree .= "\n";
     }
 
-    if($height === 4) {
-        return <<<'TEX'
-   x
-  xxx
- xxxxx
-xxxxxxx
-   |
-TEX;
-    }
+    $tree .= str_repeat(" ", $height - 1);
 
-    if($height === 3) {
-        return <<<'TEX'
-  x
- xxx
-xxxxx
-  |
-TEX;
-    }
-    return <<<'TEX'
- x
-xxx
- |
-TEX;
-
-
+    $tree .= '|';
+    return $tree;
 }
 
 class printChristmasTreeTest extends TestCase
@@ -86,5 +67,5 @@ TEX;
         $actualResult = printChristmasTree(4);
 
         self::assertSame($expected, $actualResult);
-        }
     }
+}
