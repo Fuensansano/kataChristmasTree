@@ -7,6 +7,16 @@ use PHPUnit\Framework\TestCase;
 
 function printChristmasTree(int $height): string
 {
+    if($height === 4) {
+        return <<<'TEX'
+   x
+  xxx
+ xxxxx
+xxxxxxx
+   |
+TEX;
+    }
+
     if($height === 3) {
         return <<<'TEX'
   x
@@ -54,4 +64,19 @@ TEX;
     }
 
 
-}
+    /** @test */
+    public function give_height_of_four_we_expect_to_have_a_tree_of_four_rows_of_leaves(): void
+    {
+        $expected = <<<'TEX'
+       x
+      xxx
+     xxxxx
+    xxxxxxx
+       |
+    TEX;
+
+        $actualResult = printChristmasTree(4);
+
+        self::assertSame($expected, $actualResult);
+        }
+    }
